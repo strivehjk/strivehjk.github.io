@@ -77,7 +77,9 @@
 <h1 id="手动管理node"><a href="#手动管理node" class="headerlink" title="手动管理node"></a>手动管理node</h1><p>集群管理员可以手动创建、修改node对象，当然先要把node的自注册功能关掉，设置node的kubelete标志–register-node=false。</p>
 <p>用户可以手动设置node标签、或者使node不可以被安排调度。</p>
 <p>标签可以被node selectors用来聚合node从而控制调度，比如约束pod只能调度到符合条件的node上。</p>
-<p>使node不可调度，可以阻止node授受新的调度任务，对已经存在的pod没有影响。这个特性很有用。使node不可调度可运行如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl cordon $NODENAME</span><br></pre></td></tr></table></figure></p>
+<p>使node不可调度，可以阻止node授受新的调度任务，对已经存在的pod没有影响。这个特性很有用。使node不可调度可运行如下命令：</p>
+<pre>kubectl cordon <b>$NODENAME</b></pre>
+
 <p>注意，使node不可调度，对DaemonSet类型的pod无效。</p>
 <h2 id="Node-capacity"><a href="#Node-capacity" class="headerlink" title="Node capacity"></a>Node capacity</h2><p>Node的capacity也是node对象的一部分。自注册节点在创建node对象时自动注册此部分内容。但是，如果是手动管理node对象的话，则也需要手动设置此部分内部。</p>
 <p>Kubernetes scheduler在调度pod之前，首先要确保node上有足够运行pod的资源，它要确保node上运行的所有container占用的资源不能超过节点的 capacity。但是，默认情况下在统计node的资源占用情况时，只计算由kubelete启动的容器，其它进程占用的资源不在统计之内。</p>
